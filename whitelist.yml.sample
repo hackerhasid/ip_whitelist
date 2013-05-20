@@ -1,0 +1,9 @@
+staging:
+  - 1.2.3.4   # Comments are allowed
+  # including full line comments
+  - 10.1.2.3
+
+production:
+  # no IPs listed, so all are blocked
+  
+# since no 'development:' listed, development environment is all allowed

@@ -2,8 +2,9 @@ h1. IP Whitelist Middleware
 
 h2. About
 
-Rack Middleware for websites that need to contain access to a group of ip addresses (a whitelist). 
+Rack Middleware for websites that need to contain access to a group of ip addresses (a whitelist).
 Outside these addresses, vistors are shown 403 Forbidden page.
+The whitelist is maintained via environment-specific lists in a YAML configuration file.
 
 h3. Usage
 
@@ -11,8 +12,20 @@ h4. Rails 3
 
 in Gemfile
 
-@gem 'rack-ip-whitelist'@
+@gem 'ip_whitelist', :git => 'git://github.com/nexiahome/ip_whitelist.git'@
 
-in config/application.rb
+That's it! _(Railtie will auto-load this middleware code right after Rails::Logger)_
 
-@config.middleware.use Rack::IpWhiteList, %w(55.44.22.11 55.44.11.22) # array of whitelisted addresses%@
+Use @'rake middleware'@ to see the load order
+
+h3. YAML File
+
+Be sure to set up your YAML file to list the whitelisted IPs. It must be at:
+
+@config/whitelist.yml@
+
+Otherwise it will not be loaded.
+
+h3. Kudos
+
+This middleware gem started from *https://github.com/jake3030/rack-ip-whitelist* but changed enough to warrant it's own new name.
