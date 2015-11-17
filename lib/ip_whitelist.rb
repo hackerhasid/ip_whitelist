@@ -26,11 +26,20 @@ module Rack
     end
 
     def white_listed?(env)
-      if @ip_addresses.include?(env["REMOTE_ADDR"])
+      ip = get_remote_ip(env)
+      if @ip_addresses.include?(ip)
         return true
       else
-        Rails.logger.info "IP Whitelist Denied for IP: #{env["REMOTE_ADDR"].inspect}"
+        Rails.logger.info "IP Whitelist Denied for IP: #{ip}"
         return false
+      end
+    end
+
+    def get_remote_ip(env)
+      if (!env["HTTP_X_FORWARDED_FOR"].blank?)
+        env["HTTP_X_FORWARDED_FOR"].split(',')[-1]
+      else
+        env["REMOTE_ADDR"]
       end
     end
   end
