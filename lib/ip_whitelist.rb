@@ -38,7 +38,7 @@ module Rack
 
     def get_remote_ip(env)
       if (!env["HTTP_X_FORWARDED_FOR"].blank?)
-        env["HTTP_X_FORWARDED_FOR"].split(',')[-1]
+        env["HTTP_X_FORWARDED_FOR"].split(',')[-1].strip
       else
         env["REMOTE_ADDR"]
       end
