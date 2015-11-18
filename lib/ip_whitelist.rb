@@ -23,6 +23,7 @@ module Rack
       yaml_data = YAML.load_file(file_path) rescue {}
       @allow_all = !yaml_data.keys.include?(Rails.env) # if no environment listed, then no whitelist. allow all.
       @ip_addresses = [yaml_data[Rails.env]].flatten.compact rescue []
+      Rails.logger.info "@ip_addresses set to #{@ip_addresses}"
     end
 
     def white_listed?(env)
